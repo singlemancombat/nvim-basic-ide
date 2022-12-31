@@ -105,6 +105,10 @@ return packer.startup(function(use)
   use 'ray-x/go.nvim'
   use 'ray-x/guihua.lua' -- recommanded if need floating window support
 
+  -- rust-tools.vim
+  use 'simrat39/rust-tools.nvim'
+
+
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
