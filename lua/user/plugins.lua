@@ -97,12 +97,13 @@ return packer.startup(function(use)
 
   -- DAP
   use { "mfussenegger/nvim-dap" }
+  use { "leoluz/nvim-dap-go"}
+  use { 'mfussenegger/nvim-dap-python' }
   use { "rcarriga/nvim-dap-ui" }
   use { "ravenxrz/DAPInstall.nvim" }
 
-  -- go.nvim
-  use { 'ray-x/go.nvim' }
-  use { 'ray-x/guihua.lua' } -- recommanded if need floating window support
+  -- vim-go
+  use { "fatih/vim-go" }
 
   -- rust-tools.vim
   use { 'simrat39/rust-tools.nvim' }
@@ -114,5 +115,4 @@ return packer.startup(function(use)
     require("packer").sync()
   end
 
-  require('go').setup()
 end)
