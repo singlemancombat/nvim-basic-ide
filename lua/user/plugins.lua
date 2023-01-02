@@ -59,10 +59,14 @@ return packer.startup(function(use)
   use { "lewis6991/impatient.nvim" }
   use { "lukas-reineke/indent-blankline.nvim" }
   use { "goolord/alpha-nvim" }
+  use { "folke/which-key.nvim" }
 
   -- Colorschemes
   use { "folke/tokyonight.nvim" }
   use { "lunarvim/darkplus.nvim" }
+
+  -- neovim-ui-enhancerususe
+	use("MunifTanjim/nui.nvim")
 
   -- cmp plugins
   use { "hrsh7th/nvim-cmp" } -- The completion plugin
@@ -105,8 +109,14 @@ return packer.startup(function(use)
   -- vim-go
   use { "fatih/vim-go" }
 
+  -- vim java
+  use { "mfussenegger/nvim-jdtls" }
+
   -- rust-tools.vim
   use { 'simrat39/rust-tools.nvim' }
+
+  -- ascii-stuff
+	use({ "MaximilianLloyd/ascii.nvim", requires = { "MunifTanjim/nui.nvim" }})
 
 
   -- Automatically set up your configuration after cloning packer.nvim
