@@ -149,7 +149,7 @@ telescope.setup({
 		},
 		find_files = {
 			theme = "dropdown",
-			previewer = false,
+			preview = true,
 		},
 		buffers = {
 			theme = "dropdown",

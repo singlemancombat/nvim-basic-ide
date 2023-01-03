@@ -63,10 +63,10 @@ return packer.startup(function(use)
   use { "folke/which-key.nvim" }
 
   -- color schemes
-  use({
+  use {
 		"catppuccin/nvim",
 		as = "catppuccin",
-	})
+	}
   use { "folke/tokyonight.nvim" }
   use { "lunarvim/darkplus.nvim" }
 	use { "EdenEast/nightfox.nvim" }
@@ -78,7 +78,10 @@ return packer.startup(function(use)
 	use { "MunifTanjim/nui.nvim" }
 
   -- winbar stuff
-	use { "SmiteshP/nvim-navic" }
+	use {
+    "SmiteshP/nvim-navic",
+    requires = "neovim/nvim-lspconfig"
+  }
 
   -- cmp plugins
   use { "hrsh7th/nvim-cmp" } -- The completion plugin
@@ -102,13 +105,13 @@ return packer.startup(function(use)
   use { "RRethy/vim-illuminate" }
 
   --for-json-schemas
-	use("b0o/schemastore.nvim")
+	use { "b0o/schemastore.nvim" }
 
 	--for-showing lsp progress
-	use("j-hui/fidget.nvim")
+	use { "j-hui/fidget.nvim" }
 
 	-- Quickrun Plugin
-	use({ "is0n/jaq-nvim" })
+	use { "is0n/jaq-nvim" }
 
   -- Dashboard
   use { "goolord/alpha-nvim" }
@@ -118,10 +121,10 @@ return packer.startup(function(use)
   use { "nvim-telescope/telescope-file-browser.nvim" }
 
   -- Treesitter
-  use ({
+  use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
-  })
+  }
 
   -- Git
   use { "lewis6991/gitsigns.nvim" }
@@ -148,18 +151,18 @@ return packer.startup(function(use)
   use { 'simrat39/rust-tools.nvim' }
 
   -- ascii-stuff
-	use({
+	use {
     "MaximilianLloyd/ascii.nvim",
     requires = {
       "MunifTanjim/nui.nvim",
     }
-  })
+  }
 
   -- markdown preview
-  use {"ellisonleao/glow.nvim"}
+  use { "ellisonleao/glow.nvim" }
 
   -- zen mode
-  use({ "folke/zen-mode.nvim" })
+  use { "folke/zen-mode.nvim" }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
