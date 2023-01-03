@@ -16,12 +16,14 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd [[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]]
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  pattern = { "plugins.lua" },
+  callback = function()
+    vim.cmd("luafile %")
+    vim.cmd("PackerSync")
+  end,
+})
+
 
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
@@ -30,7 +32,7 @@ if not status_ok then
 end
 
 -- Have packer use a popup window
-packer.init {
+packer.init({
   display = {
     open_fn = function()
       return require("packer.util").float { border = "rounded" }
@@ -39,7 +41,7 @@ packer.init {
   git = {
     clone_timeout = 300, -- Timeout, in seconds, for git clones
   },
-}
+})
 
 -- Install your plugins here
 return packer.startup(function(use)
@@ -58,23 +60,35 @@ return packer.startup(function(use)
   use { "ahmedkhalf/project.nvim" }
   use { "lewis6991/impatient.nvim" }
   use { "lukas-reineke/indent-blankline.nvim" }
-  use { "goolord/alpha-nvim" }
   use { "folke/which-key.nvim" }
 
-  -- Colorschemes
+  -- color schemes
+  use({
+		"catppuccin/nvim",
+		as = "catppuccin",
+	})
   use { "folke/tokyonight.nvim" }
   use { "lunarvim/darkplus.nvim" }
+	use { "EdenEast/nightfox.nvim" }
+	use { "marko-cerovac/material.nvim" }
+	use { "Mofiqul/dracula.nvim" }
+  use { "Shatur/neovim-ayu" }
 
   -- neovim-ui-enhancerususe
-	use("MunifTanjim/nui.nvim")
+	use { "MunifTanjim/nui.nvim" }
+
+  -- winbar stuff
+	use { "SmiteshP/nvim-navic" }
+	use { "utilyre/barbecue.nvim" }
 
   -- cmp plugins
   use { "hrsh7th/nvim-cmp" } -- The completion plugin
   use { "hrsh7th/cmp-buffer" } -- buffer completions
   use { "hrsh7th/cmp-path" } -- path completions
-  use { "saadparwaiz1/cmp_luasnip" } -- snippet completions
+  use { "hrsh7th/cmp-cmdline" } -- cmdline completion
   use { "hrsh7th/cmp-nvim-lsp" }
   use { "hrsh7th/cmp-nvim-lua" }
+  use { "saadparwaiz1/cmp_luasnip" } -- snippet completions
 
   -- snippets
   use { "L3MON4D3/LuaSnip" } --snippet engine
@@ -88,23 +102,39 @@ return packer.startup(function(use)
   use { "jose-elias-alvarez/null-ls.nvim" } -- for formatters and linters
   use { "RRethy/vim-illuminate" }
 
+  --for-json-schemas
+	use("b0o/schemastore.nvim")
+
+	--for-showing lsp progress
+	use("j-hui/fidget.nvim")
+
+	-- Quickrun Plugin
+	use({ "is0n/jaq-nvim" })
+
+  -- Dashboard
+  use { "goolord/alpha-nvim" }
+
   -- Telescope
   use { "nvim-telescope/telescope.nvim" }
+  use { "nvim-telescope/telescope-file-browser.nvim" }
 
   -- Treesitter
-  use {
+  use ({
     "nvim-treesitter/nvim-treesitter",
-  }
+    run = ":TSUpdate",
+  })
 
   -- Git
   use { "lewis6991/gitsigns.nvim" }
 
   -- DAP
   use { "mfussenegger/nvim-dap" }
-  use { "leoluz/nvim-dap-go"}
   use { 'mfussenegger/nvim-dap-python' }
+  use { "leoluz/nvim-dap-go"}
   use { "rcarriga/nvim-dap-ui" }
   use { "ravenxrz/DAPInstall.nvim" }
+  use { "ethanholz/nvim-lastplace" }
+	use { "p00f/clangd_extensions.nvim" }
 
   -- vim-go
   use { "fatih/vim-go" }
@@ -116,8 +146,15 @@ return packer.startup(function(use)
   use { 'simrat39/rust-tools.nvim' }
 
   -- ascii-stuff
-	use({ "MaximilianLloyd/ascii.nvim", requires = { "MunifTanjim/nui.nvim" }})
+	use({
+    "MaximilianLloyd/ascii.nvim",
+    requires = {
+      "MunifTanjim/nui.nvim",
+    }
+  })
 
+  -- zen mode
+  use({ "folke/zen-mode.nvim" })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
