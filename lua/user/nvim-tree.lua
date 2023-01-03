@@ -63,11 +63,11 @@ nvim_tree.setup({
 			error = "",
 		},
 	},
+  sync_root_with_cwd = true,
 	respect_buf_cwd = true,
 	update_focused_file = {
 		enable = true,
-		update_cwd = true,
-		ignore_list = {},
+    update_root = true,
 	},
 	git = {
 		enable = true,
