@@ -89,9 +89,6 @@ telescope.setup({
 
 				["<c-d>"] = actions.delete_buffer,
 
-				-- ["<C-u>"] = actions.preview_scrolling_up,
-				-- ["<C-d>"] = actions.preview_scrolling_down,
-
 				-- ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
 				["<Tab>"] = actions.close,
 				["<S-Tab>"] = actions.close,
@@ -164,7 +161,7 @@ telescope.setup({
 			show_moon = true,
 		},
 		colorscheme = {
-			enable_preview = true,
+			enable_preview = false,
 		},
 		lsp_references = {
 			theme = "dropdown",

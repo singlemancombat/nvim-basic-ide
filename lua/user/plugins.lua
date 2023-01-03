@@ -137,7 +137,10 @@ return packer.startup(function(use)
 	use { "p00f/clangd_extensions.nvim" }
 
   -- vim-go
-  use { "fatih/vim-go" }
+  use {
+    "fatih/vim-go",
+    run = ":GoUpdateBinaries",
+  }
 
   -- vim java
   use { "mfussenegger/nvim-jdtls" }
@@ -152,6 +155,9 @@ return packer.startup(function(use)
       "MunifTanjim/nui.nvim",
     }
   })
+
+  -- markdown preview
+  use {"ellisonleao/glow.nvim"}
 
   -- zen mode
   use({ "folke/zen-mode.nvim" })
