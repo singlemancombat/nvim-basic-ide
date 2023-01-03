@@ -201,10 +201,8 @@ require("lazy").setup({
 	},
 	"SmiteshP/nvim-navic",
 	{
-		"utilyre/barbecue.nvim",
 		config = function()
 			require("user.navic")
-			require("user.barbeque.barbeque2")
 		end,
 	},
 	{

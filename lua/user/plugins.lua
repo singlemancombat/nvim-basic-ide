@@ -79,7 +79,6 @@ return packer.startup(function(use)
 
   -- winbar stuff
 	use { "SmiteshP/nvim-navic" }
-	use { "utilyre/barbecue.nvim" }
 
   -- cmp plugins
   use { "hrsh7th/nvim-cmp" } -- The completion plugin

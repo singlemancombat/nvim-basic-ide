@@ -161,7 +161,7 @@ telescope.setup({
 			show_moon = true,
 		},
 		colorscheme = {
-			enable_preview = false,
+			enable_preview = true,
 		},
 		lsp_references = {
 			theme = "dropdown",

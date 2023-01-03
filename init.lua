@@ -1,7 +1,6 @@
 require "user.options"
 require "user.plugins"
 require "user.colorschemes.ayu"
-require "user.barbeque"
 require "user.dashboard"
 require "user.impatient"
 require "user.keymaps"
