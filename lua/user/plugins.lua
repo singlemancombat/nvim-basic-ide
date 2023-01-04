@@ -138,6 +138,21 @@ return packer.startup(function(use)
   use { "ethanholz/nvim-lastplace" }
 	use { "p00f/clangd_extensions.nvim" }
 
+  -- Test
+  use {
+    "nvim-neotest/neotest",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-neotest/neotest-go",
+      "nvim-neotest/neotest-python",
+      "rouge8/neotest-rust",
+      "stevanmilic/neotest-scala",
+      "haydenmeade/neotest-jest",
+    }
+  }
+
   -- vim-go
   use {
     "fatih/vim-go",
@@ -156,6 +171,12 @@ return packer.startup(function(use)
     requires = {
       "MunifTanjim/nui.nvim",
     }
+  }
+
+  -- hop
+  use {
+    "phaazon/hop.nvim",
+    branch = 'v2',
   }
 
   -- markdown preview
