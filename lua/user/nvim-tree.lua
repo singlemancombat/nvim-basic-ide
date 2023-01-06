@@ -17,12 +17,14 @@ nvim_tree.setup({
 	disable_netrw = true,
 	hijack_netrw = true,
 	open_on_setup = true,
+  root_dirs = {},
 	ignore_ft_on_setup = {
 		"startify",
 		"dashboard",
 		"alpha",
 	},
 	renderer = {
+    highlight_git = true,
 		group_empty = true,
 		icons = {
 			webdev_colors = true,
@@ -51,9 +53,36 @@ nvim_tree.setup({
 			},
 		},
 	},
+  actions = {
+    use_system_clipboard = true,
+    change_dir = {
+      enable = true,
+      global = false,
+      restrict_above_cwd = false,
+    },
+    open_file = {
+      quit_on_open = false,
+      resize_window = true,
+      window_picker = {
+        enable = true,
+        chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+        exclude = {
+          filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
+          buftype = { "nofile", "terminal", "help" },
+        },
+      },
+    },
+    remove_file = {
+      close_window = true,
+    },
+  },
 	open_on_tab = false,
 	hijack_cursor = false,
 	update_cwd = true,
+  auto_reload_on_write = true,
+  hijack_directories = {
+    enable = false,
+  },
 	diagnostics = {
 		enable = true,
 		icons = {
@@ -67,15 +96,16 @@ nvim_tree.setup({
 	respect_buf_cwd = true,
 	update_focused_file = {
 		enable = true,
-    update_root = false,
+    update_cwd = true,
+    ignore_list = {},
 	},
 	git = {
 		enable = true,
 		ignore = true,
-		timeout = 500,
+		timeout = 200,
 	},
 	view = {
-		width = 25,
+		width = 30,
 		hide_root_folder = false,
 		side = "left",
 		mappings = {
@@ -88,5 +118,27 @@ nvim_tree.setup({
 		},
 		number = false,
 		relativenumber = false,
+    signcolumn = "yes",
 	},
+  filters = {
+    dotfiles = false,
+    custom = { "node_modules", "\\.cache" },
+    exclude = {},
+  },
+  trash = {
+    cmd = "trash",
+    require_confirm = true,
+  },
+  log = {
+    enable = false,
+    truncate = false,
+    types = {
+      all = false,
+      config = false,
+      copy_paste = false,
+      diagnostics = false,
+      git = false,
+      profile = false,
+    },
+  },
 })
