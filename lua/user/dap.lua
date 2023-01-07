@@ -73,11 +73,15 @@ dap.configurations.go = {
   },
 }
 
--- add other configs here
+-- dap ui settings
 
 dapui.setup({
   expand_lines = true,
-  icons = { expanded = "", collapsed = "", circular = "" },
+  icons = {
+    expanded = "",
+    collapsed = "",
+    circular = "",
+  },
   mappings = {
     -- Use a table to apply multiple mappings
     expand = { "<CR>", "<2-LeftMouse>" },
@@ -107,10 +111,25 @@ dapui.setup({
       position = "bottom",
     },
   },
+  controls = {
+    enabled = true,
+    -- Display controls in this element
+    element = "repl",
+    icons = {
+      pause = "",
+      play = "",
+      step_into = "",
+      step_over = "",
+      step_out = "",
+      step_back = "",
+      run_last = "↻",
+      terminate = "□",
+    },
+  },
   floating = {
     max_height = 0.9,
     max_width = 0.5, -- Floats will be treated as percentage of your screen.
-    border = vim.g.border_chars, -- Border style. Can be 'single', 'double' or 'rounded'
+    border = "rounded", -- Border style. Can be 'single', 'double' or 'rounded'
     mappings = {
       close = { "q", "<Esc>" },
     },
