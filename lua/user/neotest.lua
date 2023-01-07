@@ -1,6 +1,6 @@
 local status_ok, neotest = pcall(require, "neotest")
 if not status_ok then
-	return
+  return
 end
 
 -- get neotest namespace (api call creates or returns namespace)

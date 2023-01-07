@@ -64,21 +64,21 @@ return packer.startup(function(use)
 
   -- color schemes
   use {
-		"catppuccin/nvim",
-		as = "catppuccin",
-	}
+    "catppuccin/nvim",
+    as = "catppuccin",
+  }
   use { "folke/tokyonight.nvim" }
   use { "lunarvim/darkplus.nvim" }
-	use { "EdenEast/nightfox.nvim" }
-	use { "marko-cerovac/material.nvim" }
-	use { "Mofiqul/dracula.nvim" }
+  use { "EdenEast/nightfox.nvim" }
+  use { "marko-cerovac/material.nvim" }
+  use { "Mofiqul/dracula.nvim" }
   use { "Shatur/neovim-ayu" }
 
   -- neovim-ui-enhancerususe
-	use { "MunifTanjim/nui.nvim" }
+  use { "MunifTanjim/nui.nvim" }
 
   -- winbar stuff
-	use {
+  use {
     "SmiteshP/nvim-navic",
     requires = "neovim/nvim-lspconfig"
   }
@@ -103,15 +103,16 @@ return packer.startup(function(use)
   use { "williamboman/mason-lspconfig.nvim" }
   use { "jose-elias-alvarez/null-ls.nvim" } -- for formatters and linters
   use { "RRethy/vim-illuminate" }
+  use { "glepnir/lspsaga.nvim" }
 
   --for-json-schemas
-	use { "b0o/schemastore.nvim" }
+  use { "b0o/schemastore.nvim" }
 
-	--for-showing lsp progress
-	use { "j-hui/fidget.nvim" }
+  --for-showing lsp progress
+  use { "j-hui/fidget.nvim" }
 
-	-- Quickrun Plugin
-	use { "is0n/jaq-nvim" }
+  -- Quickrun Plugin
+  use { "is0n/jaq-nvim" }
 
   -- Dashboard
   use { "goolord/alpha-nvim" }
@@ -119,6 +120,7 @@ return packer.startup(function(use)
   -- Telescope
   use { "nvim-telescope/telescope.nvim" }
   use { "nvim-telescope/telescope-file-browser.nvim" }
+  use { "nvim-telescope/telescope-project.nvim" }
 
   -- Treesitter
   use {
@@ -136,7 +138,7 @@ return packer.startup(function(use)
   use { "rcarriga/nvim-dap-ui" }
   use { "ravenxrz/DAPInstall.nvim" }
   use { "ethanholz/nvim-lastplace" }
-	use { "p00f/clangd_extensions.nvim" }
+  use { "p00f/clangd_extensions.nvim" }
 
   -- Test
   use {
@@ -166,7 +168,7 @@ return packer.startup(function(use)
   use { 'simrat39/rust-tools.nvim' }
 
   -- ascii-stuff
-	use {
+  use {
     "MaximilianLloyd/ascii.nvim",
     requires = {
       "MunifTanjim/nui.nvim",
@@ -184,6 +186,16 @@ return packer.startup(function(use)
 
   -- zen mode
   use { "folke/zen-mode.nvim" }
+
+  -- cheatsheet
+  use {
+    'sudormrfbin/cheatsheet.nvim',
+    requires = {
+      'nvim-telescope/telescope.nvim',
+      'nvim-lua/popup.nvim',
+      'nvim-lua/plenary.nvim',
+    }
+  }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

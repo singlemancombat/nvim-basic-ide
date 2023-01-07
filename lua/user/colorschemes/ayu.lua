@@ -1,4 +1,3 @@
-
 local colorscheme = "ayu"
 
 require('ayu').setup({
