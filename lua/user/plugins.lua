@@ -85,6 +85,8 @@ return packer.startup(function(use)
 
   -- cmp plugins
   use { "hrsh7th/nvim-cmp" } -- The completion plugin
+  use { "hrsh7th/vim-vsnip" }
+  use { "hrsh7th/cmp-vsnip" }
   use { "hrsh7th/cmp-buffer" } -- buffer completions
   use { "hrsh7th/cmp-path" } -- path completions
   use { "hrsh7th/cmp-cmdline" } -- cmdline completion
@@ -93,7 +95,6 @@ return packer.startup(function(use)
   use { "saadparwaiz1/cmp_luasnip" } -- snippet completions
 
   -- snippets
-  use { "L3MON4D3/LuaSnip" } --snippet engine
   use { "rafamadriz/friendly-snippets" } -- a bunch of snippets to use
 
   -- LSP
@@ -104,6 +105,8 @@ return packer.startup(function(use)
   use { "jose-elias-alvarez/null-ls.nvim" } -- for formatters and linters
   use { "RRethy/vim-illuminate" }
   use { "glepnir/lspsaga.nvim" }
+  use { "onsails/lspkind-nvim" }
+  use { "liuchengxu/vista.vim" }
 
   --for-json-schemas
   use { "b0o/schemastore.nvim" }

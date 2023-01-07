@@ -137,16 +137,15 @@ telescope.setup({
     },
     project = {
       base_dirs = {
-        '~/go/src',
-        '~/code',
-        '~/github',
+        {path = '~/go/src'},
+        {path = '~/code'},
+        {path = '~/github'},
       },
-      hidden_files = true, -- default: false
+      hidden_files = false, -- default: false
       theme = "dropdown",
       order_by = "asc",
       search_by = "title",
-      sync_with_nvim_tree = true, -- default false
+      sync_with_nvim_tree = false, -- default false
     },
-
   },
 })

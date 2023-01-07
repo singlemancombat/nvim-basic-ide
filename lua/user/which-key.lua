@@ -56,7 +56,7 @@ local setup = {
     align = "center", -- align columns left, center or right
   },
   ignore_missing = true, -- enable this to hide mappings for which you didn't specify a label
-  hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
+  hidden = { "<silent>", "<cmd>", "<Cmd>", "<cr>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
   show_help = true, -- show help message on the command line when the popup is visible
   -- triggers = "auto", -- automatically setup triggers
   triggers = {"<leader>"}, -- or specify a list manually
@@ -79,11 +79,11 @@ local opts = {
 }
 
 local mappings = {
-  ["a"] = { "<cmd>:e $MYVIMRC<CR>", "Configuration" },
-  ["e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
-  ["w"] = { "<cmd>w!<CR>", "Save" },
-  ["q"] = { "<cmd>q!<CR>", "Quit" },
-  ["c"] = { "<cmd>bdelete!<CR>", "Close Buffer" },
+  ["a"] = { "<cmd>:e $MYVIMRC<cr>", "Configuration" },
+  ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
+  ["w"] = { "<cmd>w!<cr>", "Save" },
+  ["q"] = { "<cmd>q!<cr>", "Quit" },
+  ["c"] = { "<cmd>bdelete!<cr>", "Close Buffer" },
 
   b = {
     name = "Browse",
@@ -95,8 +95,8 @@ local mappings = {
       "<cmd>Telescope file_browser<cr>",
       "File browser",
     },
-    t = {
-      "<cmd>:Telescope colorscheme<cr>",
+    c = {
+      "<cmd>Telescope colorscheme<cr>",
       "Colorschemes",
     }
   },
@@ -111,13 +111,13 @@ local mappings = {
       "<cmd>Telescope live_grep<cr>",
       "Find Text",
     },
-      p = {
-      "<cmd>lua require('telescope').extensions.projects.projects()<cr>",
+    p = {
+      "<cmd>lua require('telescope').extensions.project.project()<cr>",
       "Find Projects",
     },
   },
 
-  ["J"] = { "<cmd>Jaq<CR>", "Jaq" },
+  ["J"] = { "<cmd>Jaq<cr>", "Jaq" },
 
   P = {
     name = "Packer",
@@ -128,11 +128,11 @@ local mappings = {
     u = { "<cmd>PackerUpdate<cr>", "Update" },
   },
 
-  ["r"] = { "<cmd>:Telescope oldfiles<cr>", "Recent Files" },
+  ["r"] = { "<cmd>Telescope oldfiles<cr>", "Recent Files" },
 
   G = {
     name = "Git",
-    g = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
+    g = { "<cmd>lua _LAZYGIT_TOGGLE()<cr>", "Lazygit" },
     j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
     k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
     l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
@@ -175,7 +175,7 @@ local mappings = {
     i = { "<cmd>LspInfo<cr>", "Info" },
     I = { "<cmd>Mason<cr>", "Installer Info" },
     j = {
-      "<cmd>lua vim.diagnostic.goto_next()<CR>",
+      "<cmd>lua vim.diagnostic.goto_next()<cr>",
       "Next Diagnostic",
     },
 
