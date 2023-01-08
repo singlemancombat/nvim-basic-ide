@@ -104,7 +104,7 @@ return packer.startup(function(use)
   use { "williamboman/mason-lspconfig.nvim" }
   use { "jose-elias-alvarez/null-ls.nvim" } -- for formatters and linters
   use { "RRethy/vim-illuminate" }
-  use { "glepnir/lspsaga.nvim" }
+  use { "tami5/lspsaga.nvim" }
   use { "onsails/lspkind-nvim" }
   use { "liuchengxu/vista.vim" }
 
@@ -159,10 +159,8 @@ return packer.startup(function(use)
   }
 
   -- vim-go
-  use {
-    "fatih/vim-go",
-    run = ":GoUpdateBinaries",
-  }
+  use 'ray-x/go.nvim'
+  use 'ray-x/guihua.lua'
 
   -- vim java
   use { "mfussenegger/nvim-jdtls" }
