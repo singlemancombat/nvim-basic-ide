@@ -38,7 +38,7 @@ local servers = {
 
 local settings = {
   ui = {
-    border = "none",
+    border = "rounded",
     icons = {
       package_installed = "◍",
       package_pending = "◍",
@@ -59,16 +59,16 @@ local opts = {}
 
 for _, server in pairs(servers) do
   opts = {
-    on_attach = require("user.lsp.attach").on_attach,
-		capabilities = require("user.lsp.attach").capabilities,
-  }
+		on_attach = require("user.lsp.handlers").on_attach,
+		capabilities = require("user.lsp.handlers").capabilities,
+	}
 
-  server = vim.split(server, "@")[1]
+	server = vim.split(server, "@")[1]
 
-  local require_ok, conf_opts = pcall(require, "user.lsp.settings." .. server)
-  if require_ok then
-    opts = vim.tbl_deep_extend("force", conf_opts, opts)
-  end
+	local require_ok, conf_opts = pcall(require, "user.lsp.settings." .. server)
+	if require_ok then
+		opts = vim.tbl_deep_extend("force", conf_opts, opts)
+	end
 
-  lspconfig[server].setup(opts)
+	lspconfig[server].setup(opts)
 end

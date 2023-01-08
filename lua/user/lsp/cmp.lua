@@ -1,64 +1,56 @@
-local cmp = require("cmp")
+-- Set up nvim-cmp.
+local cmp = require'cmp'
 
 cmp.setup({
-  -- 指定 snippet 引擎
   snippet = {
+    -- REQUIRED - you must specify a snippet engine
     expand = function(args)
-      -- For `vsnip` users.
-      vim.fn["vsnip#anonymous"](args.body)
-
-      -- For `luasnip` users.
-      -- require('luasnip').lsp_expand(args.body)
-
-      -- For `ultisnips` users.
-      -- vim.fn["UltiSnips#Anon"](args.body)
-
-      -- For `snippy` users.
-      -- require'snippy'.expand_snippet(args.body)
+      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+      -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+      -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
     end,
   },
-  -- 补全源
-  sources = cmp.config.sources(
-    {
-      { name = "nvim_lsp" },
-      -- For vsnip users.
-      { name = "vsnip" },
-
-      -- For luasnip users.
-      -- { name = 'luasnip' },
-
-      --For ultisnips users.
-      -- { name = 'ultisnips' },
-
-      -- -- For snippy users.
-      -- { name = 'snippy' },
-    },
-    {
-      { name = "buffer" },
-      { name = "path" },
-    }
-  ),
-
-  -- 快捷键设置
+  window = {
+    -- completion = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
+  },
   mapping = require("user.keybindings").cmp(cmp),
-  -- 使用lspkind-nvim显示类型图标
-  formatting = require('user.lsp.ui').formatting
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' }, -- For vsnip users.
+    -- { name = 'luasnip' }, -- For luasnip users.
+    -- { name = 'ultisnips' }, -- For ultisnips users.
+    -- { name = 'snippy' }, -- For snippy users.
+  }, {
+    { name = 'buffer' },
+  })
 })
 
--- / 查找模式使用 buffer 源
-cmp.setup.cmdline("/", {
+-- Set configuration for specific filetype.
+cmp.setup.filetype('gitcommit', {
+  sources = cmp.config.sources({
+    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ '/', '?' }, {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
-    { name = "buffer" },
-  },
+    { name = 'buffer' }
+  }
 })
 
--- : 命令行模式中使用 path 和 cmdline 源.
-cmp.setup.cmdline(":", {
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
-    { name = "path" },
+    { name = 'path' }
   }, {
-      { name = "cmdline" },
-    }),
+    { name = 'cmdline' }
+  })
 })
+

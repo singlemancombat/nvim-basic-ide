@@ -104,7 +104,7 @@ return packer.startup(function(use)
   use { "williamboman/mason-lspconfig.nvim" }
   use { "jose-elias-alvarez/null-ls.nvim" } -- for formatters and linters
   use { "RRethy/vim-illuminate" }
-  use { "tami5/lspsaga.nvim" }
+  use { "glepnir/lspsaga.nvim" }
   use { "onsails/lspkind-nvim" }
   use { "liuchengxu/vista.vim" }
 

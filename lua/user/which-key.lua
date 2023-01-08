@@ -80,7 +80,6 @@ local opts = {
 
 local mappings = {
   ["a"] = { "<cmd>:e $MYVIMRC<cr>", "Configuration" },
-  ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
   ["w"] = { "<cmd>w!<cr>", "Save" },
   ["q"] = { "<cmd>q!<cr>", "Quit" },
   ["c"] = { "<cmd>bdelete!<cr>", "Close Buffer" },
@@ -117,7 +116,7 @@ local mappings = {
     },
   },
 
-  ["J"] = { "<cmd>Jaq<cr>", "Jaq" },
+  ["j"] = { "<cmd>Jaq<cr>", "Jaq" },
 
   P = {
     name = "Packer",
