@@ -9,7 +9,14 @@ if not dap_ui_status_ok then
 end
 
 -- Config for Golang --
-vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
+vim.fn.sign_define(
+  "DapBreakpoint",
+  {
+    text = "🔴",
+    texthl = "",
+    linehl = "",
+    numhl = "",
+  })
 dap.adapters.go = function(callback)
   local stdout = vim.loop.new_pipe(false)
   local handle
@@ -133,6 +140,13 @@ dapui.setup({
     mappings = {
       close = { "q", "<Esc>" },
     },
+  },
+  windows = {
+    indent = 1,
+  },
+  render = {
+    max_type_length = nil, -- Can be integer or nil.
+    max_value_lines = 100, -- Can be integer or nil.
   },
 })
 
