@@ -93,6 +93,12 @@ return packer.startup(function(use)
   use { "hrsh7th/cmp-nvim-lsp" }
   use { "hrsh7th/cmp-nvim-lua" }
   use { "saadparwaiz1/cmp_luasnip" } -- snippet completions
+  use {
+    "L3MON4D3/LuaSnip",
+    requires = {
+		  "rafamadriz/friendly-snippets",
+	  },
+  }
 
   -- snippets
   use { "rafamadriz/friendly-snippets" } -- a bunch of snippets to use
