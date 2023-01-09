@@ -1,6 +1,6 @@
-local colorscheme = "duskfox"
+local colorscheme = "nord"
 
-require("duskfox").setup({})
+require("nord").setup({})
 
 local status_ok, _ = pcall(vim.cmd.colorscheme, colorscheme)
 if not status_ok then

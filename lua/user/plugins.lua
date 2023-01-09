@@ -73,6 +73,8 @@ return packer.startup(function(use)
   use { "marko-cerovac/material.nvim" }
   use { "Mofiqul/dracula.nvim" }
   use { "Shatur/neovim-ayu" }
+  use { 'shaunsingh/nord.nvim' }
+  use { "rebelot/kanagawa.nvim" }
 
   -- neovim-ui-enhancerususe
   use { "MunifTanjim/nui.nvim" }
