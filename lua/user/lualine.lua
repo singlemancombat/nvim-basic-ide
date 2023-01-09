@@ -13,6 +13,7 @@ local diagnostics = {
   sections = { "error", "warn" },
   symbols = { error = " ", warn = " " },
   colored = false,
+  update_in_insert = false,
   always_visible = true,
 }
 
@@ -23,9 +24,23 @@ local diff = {
   cond = hide_in_width,
 }
 
+local mode = {
+  "mode",
+  fmt = function(str)
+    return "-- " .. str .. " --"
+  end,
+}
+
 local filetype = {
   "filetype",
   icons_enabled = false,
+  icon = nil,
+}
+
+local branch = {
+  "branch",
+  icons_enabled = true,
+  icon = "",
 }
 
 local location = {
@@ -33,52 +48,69 @@ local location = {
   padding = 0,
 }
 
+-- cool function for progress
+local progress = function()
+  local current_line = vim.fn.line(".")
+  local total_lines = vim.fn.line("$")
+  local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
+  local line_ratio = current_line / total_lines
+  local index = math.ceil(line_ratio * #chars)
+  return chars[index]
+end
+
 local spaces = function()
   return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
 end
 
-lualine.setup {
+lualine.setup({
   options = {
-    globalstatus = true,
     icons_enabled = true,
-    theme = "nord",
+    theme = "auto",
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
-    disabled_filetypes = {
-      statusline = {},       -- only ignores the ft for statusline.
-      winbar = {},           -- only ignores the ft for winbar.
+    disabled_filetypes = { -- "alpha", "dashboard"
+      statusline = { "alpha", "dashboard" }, -- "toggleterm"},
+      -- winbar = {"alpha", "dashboard"}
     },
     always_divide_middle = true,
-    refresh = {
-      statusline = 1000,
-      tabline = 1000,
-      winbar = 1000,
-    }
+    globalstatus = true,
   },
   sections = {
-    lualine_a = { "mode" },
-    lualine_b = { "branch" },
-    lualine_c = { diagnostics },
-    lualine_x = { diff, spaces, "encoding", filetype },
+    lualine_a = { branch, diagnostics },
+    lualine_b = { mode },
+    lualine_c = {
+      -- { "filename", file_status = true, path = 3 },
+    },
+    -- lualine_x = { "encoding", "fileformat", "filetype" },
+    lualine_x = { diff, filetype, spaces },
     lualine_y = { location },
-    lualine_z = { "progress" },
+    lualine_z = { progress },
   },
-  winbar = {
+  inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = { 'filename' },
-    lualine_x = {},
+    lualine_x = { "location" },
     lualine_y = {},
-    lualine_z = {}
+    lualine_z = {},
   },
-  inactive_winbar = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = { 'filename' },
-    lualine_x = {},
-    lualine_y = {},
-    lualine_z = {}
-  },
+
+  --[[ winbar = { ]]
+  --[[  lualine_a = {}, ]]
+  --[[  lualine_b = {}, ]]
+  --[[  lualine_c = { { navic.get_location, cond = navic.is_available } }, ]]
+  --[[  lualine_x = {}, ]]
+  --[[  lualine_y = {}, ]]
+  --[[  lualine_z = {}, ]]
+  --[[ }, ]]
+  --[[]]
+  --[[ inactive_winbar = { ]]
+  --[[  lualine_a = {}, ]]
+  --[[  lualine_b = {}, ]]
+  --[[  lualine_c = {}, ]]
+  --[[  lualine_x = {}, ]]
+  --[[  lualine_y = {}, ]]
+  --[[  lualine_z = {}, ]]
+  --[[ }, ]]
   tabline = {},
-  extensions = {}
-}
+  extensions = {},
+})
