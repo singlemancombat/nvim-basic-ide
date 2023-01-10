@@ -3,84 +3,68 @@ if not dap_status_ok then
   return
 end
 
+local dap_go_status_ok, dap_go = pcall(require, "dap-go")
+if not dap_go_status_ok then
+  return
+end
+
 local dap_ui_status_ok, dapui = pcall(require, "dapui")
 if not dap_ui_status_ok then
   return
 end
 
--- Config for Golang --
 vim.fn.sign_define(
   "DapBreakpoint",
   {
-    text = "🔴",
-    texthl = "",
+    text = "",
+    texthl = "DiagnosticSignError",
     linehl = "",
     numhl = "",
   })
-dap.adapters.go = function(callback)
-  local stdout = vim.loop.new_pipe(false)
-  local handle
-  local pid_or_err
-  -- User random ports to run multiple dap instances
-  local port = math.random(30000, 40000)
-  local opts = {
-    stdio = { nil, stdout },
-    args = { "dap", "-l", "127.0.0.1:" .. port },
-    detached = true,
-  }
-  handle, pid_or_err = vim.loop.spawn("dlv", opts, function(code)
-    stdout:close()
-    handle:close()
-    if code ~= 0 then
-      print("dlv exited with code", code)
-    end
-  end)
-  assert(handle, "Error running dlv: " .. tostring(pid_or_err))
-  stdout:read_start(function(err, chunk)
-    assert(not err, err)
-    if chunk then
-      vim.schedule(function()
-        require("dap.repl").append(chunk)
-      end)
-    end
-  end)
-  -- Wait for delve to start
-  vim.defer_fn(function()
-    callback({ type = "server", host = "127.0.0.1", port = port })
-  end, 100)
-end
--- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
-dap.configurations.go = {
-  {
-    type = "go",
-    name = "Debug Single File",
-    request = "launch",
-    program = "${file}",
-  },
-  {
-    type = "go",
-    name = "Debug Cureent Project",
-    request = "launch",
-    program = ".",
-  },
-  {
-    type = "go",
-    name = "Debug test", -- configuration for debugging test files
-    request = "launch",
-    mode = "test",
-    program = "${file}",
-  },
-  -- works with go.mod packages and sub packages
-  {
-    type = "go",
-    name = "Debug test (go.mod)",
-    request = "launch",
-    mode = "test",
-    program = "./${relativeFileDirname}",
-  },
-}
 
--- dap ui settings
+vim.fn.sign_define(
+  "DapStopped",
+  {
+    text = "▶",
+    texthl = "Green",
+    linehl = "ColorColumn",
+    numhl = "Green",
+  })
+
+-- Config for Golang --
+dap_go.setup({
+  -- Additional dap configurations can be added.
+  -- dap_configurations accepts a list of tables where each entry
+  -- represents a dap configuration. For more details do:
+  -- :help dap-configuration
+  dap_configurations = {
+    {
+      -- Must be "go" or it will be ignored by the plugin
+      type = "go",
+      name = "Attach remote",
+      mode = "remote",
+      request = "attach",
+    },
+  },
+  -- delve configurations
+  delve = {
+    -- time to wait for delve to initialize the debug session.
+    -- default to 20 seconds
+    initialize_timeout_sec = 20,
+    -- a string that defines the port to start delve debugger.
+    -- default to string "${port}" which instructs nvim-dap
+    -- to start the process in a random available port
+    port = "${port}"
+  },
+})
+
+-- Config for Python --
+
+
+-- Golang for Java --
+
+
+-- dap ui settings --
 
 dapui.setup({
   expand_lines = true,
@@ -136,7 +120,7 @@ dapui.setup({
   floating = {
     max_height = 0.9,
     max_width = 0.5, -- Floats will be treated as percentage of your screen.
-    border = "rounded", -- Border style. Can be 'single', 'double' or 'rounded'
+    border = "double", -- Border style. Can be 'single', 'double' or 'rounded'
     mappings = {
       close = { "q", "<Esc>" },
     },
@@ -150,7 +134,6 @@ dapui.setup({
   },
 })
 
-vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()
