@@ -28,3 +28,7 @@ require "user.hop"
 require "user.cheatsheet"
 require "user.go"
 require "user.cmp"
+
+if vim.fn.exists("g:neovide") then
+  vim.opt.guifont = { "Hack Nerd Font Mono", "h16" }
+end
