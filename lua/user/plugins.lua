@@ -51,8 +51,8 @@ return packer.startup(function(use)
   use { "windwp/nvim-autopairs" } -- Autopairs, integrates with both cmp and treesitter
   use { "numToStr/Comment.nvim" }
   use { "JoosepAlviste/nvim-ts-context-commentstring" }
-  use { "kyazdani42/nvim-web-devicons" }
-  use { "kyazdani42/nvim-tree.lua" }
+  use { "nvim-tree/nvim-web-devicons" }
+  use { "nvim-tree/nvim-tree.lua" }
   use { "akinsho/bufferline.nvim" }
   use { "moll/vim-bbye" }
   use { "nvim-lualine/lualine.nvim" }
@@ -189,6 +189,9 @@ return packer.startup(function(use)
     "phaazon/hop.nvim",
     branch = 'v2',
   }
+
+  -- fzf
+  use { 'ibhagwan/fzf-lua' }
 
   -- markdown preview
   use { "ellisonleao/glow.nvim" }
