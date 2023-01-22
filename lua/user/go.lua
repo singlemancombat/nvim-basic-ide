@@ -3,6 +3,15 @@ if not status_ok then
   return
 end
 
+local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+    require('go.format').goimport()
+  end,
+  group = format_sync_grp,
+})
+
 go.setup({
   go = "go",
   goimport = 'gopls', -- if set to 'gopls' will use golsp format
