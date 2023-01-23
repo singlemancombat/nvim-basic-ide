@@ -37,6 +37,7 @@ null_ls.setup({
     }),
     -- gofmt
     formatting.gofmt,
+    formatting.goimports,
     -- rustfmt
     -- rustup component add rustfmt
     formatting.rustfmt,
