@@ -85,20 +85,20 @@ dapui.setup({
   layouts = {
     {
       elements = {
-        { id = "scopes", size = 0.33 },
-        { id = "breakpoints", size = 0.17 },
-        { id = "stacks", size = 0.25 },
-        { id = "watches", size = 0.25 },
+        { id = "scopes", size = 0.25 },
+        "breakpoints",
+        "stacks",
+        "watches",
       },
       size = 0.33,
       position = "right",
     },
     {
       elements = {
-        { id = "repl", size = 0.45 },
-        { id = "console", size = 0.55 },
+        id = "repl",
+        id = "console",
       },
-      size = 0.27,
+      size = 0.25, -- 25% of total lines
       position = "bottom",
     },
   },
@@ -118,9 +118,7 @@ dapui.setup({
     },
   },
   floating = {
-    max_height = 0.9,
-    max_width = 0.5, -- Floats will be treated as percentage of your screen.
-    border = "double", -- Border style. Can be 'single', 'double' or 'rounded'
+    border = "rounded", -- Border style. Can be 'single', 'double' or 'rounded'
     mappings = {
       close = { "q", "<Esc>" },
     },
@@ -136,13 +134,22 @@ dapui.setup({
 
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
-  dapui.open()
+  dapui.open({ reset = true })
 end
 
 dap.listeners.before.event_terminated["dapui_config"] = function()
-  dapui.close()
+  dapui.close({})
+	local repl = dap.repl
+	repl.close()
+	-- close the remaining windows
+	-- vim.api.nvim_command([[exe "normal \<c-w>o"]])
+	vim.cmd("stopinsert")
 end
 
 dap.listeners.before.event_exited["dapui_config"] = function()
-  dapui.close()
+  dapui.close({})
+	local repl = dap.repl
+	repl.close()
+	-- vim.api.nvim_command([[exe "normal \<c-w>o"]])
+	vim.cmd("stopinsert")
 end

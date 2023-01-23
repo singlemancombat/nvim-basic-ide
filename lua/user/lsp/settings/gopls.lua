@@ -23,6 +23,8 @@ return {
         regenerate_cgo = true,
         upgrade_dependency = true,
       },
+      staticcheck = true,
+      linksInHover = true,
       usePlaceholders = true,
       completeUnimported = true,
       staticcheck = true,

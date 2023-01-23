@@ -19,10 +19,8 @@ end
 -- Determine OS
 local home = os.getenv "HOME"
 if vim.fn.has "mac" == 1 then
-  WORKSPACE_PATH = home .. "/workspace/"
   CONFIG = "mac"
 elseif vim.fn.has "unix" == 1 then
-  WORKSPACE_PATH = home .. "/workspace/"
   CONFIG = "linux"
 else
   print "Unsupported system"
@@ -39,8 +37,6 @@ local extendedClientCapabilities = jdtls.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
-
-local workspace_dir = WORKSPACE_PATH .. project_name
 
 -- TODO: Testing
 
@@ -101,7 +97,6 @@ local config = {
     -- 💀
     -- See `data directory configuration` section in the README
     "-data",
-    workspace_dir,
   },
 
   on_attach = require("user.lsp.handlers").on_attach,
