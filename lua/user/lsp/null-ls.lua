@@ -15,7 +15,12 @@ null_ls.setup({
     --  brew install shfmt
     formatting.shfmt,
     -- StyLua
-    formatting.stylua,
+    formatting.stylua.with({
+      extra_args = {
+        "--indent-type", "Spaces",
+        "--indent-width", "2",
+      }
+    }),
     -- frontend
     formatting.prettier.with({
       filetypes = {
@@ -61,6 +66,7 @@ null_ls.setup({
     --
     -- code actions ---------------------
     code_actions.gitsigns,
+    code_actions.shellcheck,
     code_actions.eslint.with({
       prefer_local = "node_modules/.bin",
     }),
