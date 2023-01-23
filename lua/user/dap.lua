@@ -61,7 +61,7 @@ dap_go.setup({
 -- Config for Python --
 
 
--- Golang for Java --
+-- Config for Java --
 
 
 -- dap ui settings --

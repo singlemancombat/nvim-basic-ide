@@ -50,12 +50,16 @@ null_ls.setup({
     -- pip install black
     -- asdf reshim python
     formatting.black.with({ extra_args = { "--fast" } }),
+    -- Java
+    formatting.google_java_format,
     -----------------------------------------------------
     -- formatting.fixjson,
     -- Diagnostics  ---------------------
     diagnostics.eslint.with({
       prefer_local = "node_modules/.bin",
+      method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
     }),
+    diagnostics.shellcheck,
     -- diagnostics.markdownlint,
     -- markdownlint-cli2
     -- diagnostics.markdownlint.with({
@@ -67,9 +71,9 @@ null_ls.setup({
     -- code actions ---------------------
     code_actions.gitsigns,
     code_actions.shellcheck,
-    code_actions.eslint.with({
-      prefer_local = "node_modules/.bin",
-    }),
+    -- code_actions.eslint.with({
+    --   prefer_local = "node_modules/.bin",
+    -- }),
   },
   -- #{m}: message
   -- #{s}: source name (defaults to null-ls if not specified)
@@ -82,3 +86,33 @@ null_ls.setup({
     -- end
   end,
 })
+
+local unwrap = {
+  method = null_ls.methods.DIAGNOSTICS,
+  filetypes = { "rust" },
+  generator = {
+    fn = function(params)
+      local diagnostics = {}
+      -- sources have access to a params object
+      -- containing info about the current file and editor state
+      for i, line in ipairs(params.content) do
+        local col, end_col = line:find "unwrap()"
+        if col and end_col then
+          -- null-ls fills in undefined positions
+          -- and converts source diagnostics into the required format
+          table.insert(diagnostics, {
+            row = i,
+            col = col,
+            end_col = end_col,
+            source = "unwrap",
+            message = "hey " .. os.getenv("USER") .. ", don't forget to handle this" ,
+            severity = 2,
+          })
+        end
+      end
+      return diagnostics
+    end,
+  },
+}
+
+null_ls.register(unwrap)

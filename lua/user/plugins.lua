@@ -115,6 +115,7 @@ return packer.startup(function(use)
   use { "glepnir/lspsaga.nvim" }
   use { "onsails/lspkind-nvim" }
   use { "liuchengxu/vista.vim" }
+  use { "ray-x/lsp_signature.nvim" }
 
   --for-json-schemas
   use { "b0o/schemastore.nvim" }

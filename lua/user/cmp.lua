@@ -109,6 +109,7 @@ cmp.setup({
         luasnip = "[Snippet]",
         buffer = "[Buffer]",
         path = "[Path]",
+        dap = "[DAP]",
       })[entry.source.name]
       return vim_item
     end,
@@ -141,6 +142,17 @@ cmp.setup.filetype('gitcommit', {
   }, {
     { name = 'buffer' },
   })
+})
+
+cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
+	sources = {
+		{ name = "dap" },
+	},
+})
+
+-- disable cmp for specify filetype
+cmp.setup.filetype({ "TelescopePrompt", "text", "" }, {
+	enabled = false,
 })
 
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).

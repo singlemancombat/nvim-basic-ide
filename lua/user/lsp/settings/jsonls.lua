@@ -4,6 +4,9 @@ if not _ then
 end
 
 return {
+  init_options = {
+    provideFormatter = false,
+  },
   settings = {
     json = {
       schemas = scheme.json.schemas(),

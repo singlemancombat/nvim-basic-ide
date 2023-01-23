@@ -10,11 +10,12 @@ end
 M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities)
 
 M.setup = function()
+  local icons = require "user.icons"
   local signs = {
-    { name = "DiagnosticSignError", text = "" },
-    { name = "DiagnosticSignWarn", text = "" },
-    { name = "DiagnosticSignHint", text = "" },
-    { name = "DiagnosticSignInfo", text = "" },
+    { name = "DiagnosticSignError", text = icons.diagnostics.Error },
+    { name = "DiagnosticSignWarn", text = icons.diagnostics.Warning },
+    { name = "DiagnosticSignHint", text = icons.diagnostics.Hint },
+    { name = "DiagnosticSignInfo", text = icons.diagnostics.Information },
   }
 
   for _, sign in ipairs(signs) do
@@ -22,7 +23,9 @@ M.setup = function()
   end
 
   local config = {
-    virtual_text = false, -- disable virtual text
+    -- disable virtual text
+    virtual_lines = false,
+    virtual_text = false,
     signs = {
       active = signs, -- show signs
     },
@@ -33,7 +36,7 @@ M.setup = function()
       focusable = true,
       style = "minimal",
       border = "rounded",
-      source = "always",
+      source = "if_many",
       header = "",
       prefix = "",
     },
@@ -50,25 +53,32 @@ M.setup = function()
   })
 end
 
+local function attach_navic(client, bufnr)
+  vim.g.navic_silence = true
+  local status_ok, navic = pcall(require, "nvim-navic")
+  if not status_ok then
+    return
+  end
+  navic.attach(client, bufnr)
+end
+
 -- keymaps
 local function lsp_keymaps(bufnr)
   local opts = { noremap = true, silent = true }
   local keymap = vim.api.nvim_buf_set_keymap
-  keymap(bufnr, "n", "gn", "<cmd>Lspsaga rename<CR>", opts)
+  keymap(bufnr, "n", "gr", "<cmd>Lspsaga rename<CR>", opts)
   keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
   keymap(bufnr, "n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts)
+  keymap(bufnr, "n", "gp", '<Cmd>Lspsaga preview_definition<cr>', opts)
   keymap(bufnr, "n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
   keymap(bufnr, "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-  keymap(bufnr, "n", "gr", "<cmd>Lspsaga lsp_finder<CR>", opts)
+  keymap(bufnr, "n", "gf", "<cmd>Lspsaga lsp_finder<CR>", opts)
   keymap(bufnr, "n", "sl", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
   keymap(bufnr, "n", "gj", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
   keymap(bufnr, "n", "gk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
   keymap(bufnr, "n", "gx", "<cmd>Lspsaga code_action<cr>", opts)
   keymap(bufnr, "n", "<leader>li", "<cmd>LspInfo<cr>", opts)
   keymap(bufnr, "n", "<leader>lI", "<cmd>Mason<cr>", opts)
-  keymap(bufnr, "n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", opts)
-  keymap(bufnr, "n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", opts)
-  keymap(bufnr, "n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
   keymap(bufnr, "n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
   keymap(bufnr, "n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
   -- Float terminal
@@ -81,15 +91,25 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
+  lsp_keymaps(bufnr)
+  attach_navic(client, bufnr)
+
   if client.name == "tsserver" then
     client.server_capabilities.documentFormattingProvider = false
+    require("lsp-inlayhints").on_attach(client, bufnr)
   end
 
   if client.name == "sumneko_lua" then
     client.server_capabilities.documentFormattingProvider = false
   end
 
-  lsp_keymaps(bufnr)
+  if client.name == "jdt.ls" then
+    vim.lsp.codelens.refresh()
+    if JAVA_DAP_ACTIVE then
+      require("jdtls").setup_dap { hotcodereplace = "auto" }
+      require("jdtls.dap").setup_dap_main_class_configs()
+    end
+  end
 
   local status_ok, illuminate = pcall(require, "illuminate")
   if not status_ok then
@@ -98,4 +118,36 @@ M.on_attach = function(client, bufnr)
   illuminate.on_attach(client)
 end
 
+function M.enable_format_on_save()
+  vim.cmd [[
+    augroup format_on_save
+      autocmd! 
+      autocmd BufWritePre * lua vim.lsp.buf.format({ async = false }) 
+    augroup end
+  ]]
+  vim.notify "Enabled format on save"
+end
+
+function M.disable_format_on_save()
+  M.remove_augroup "format_on_save"
+  vim.notify "Disabled format on save"
+end
+
+function M.toggle_format_on_save()
+  if vim.fn.exists "#format_on_save#BufWritePre" == 0 then
+    M.enable_format_on_save()
+  else
+    M.disable_format_on_save()
+  end
+end
+
+function M.remove_augroup(name)
+  if vim.fn.exists("#" .. name) == 1 then
+    vim.cmd("au! " .. name)
+  end
+end
+
+vim.cmd [[ command! LspToggleAutoFormat execute 'lua require("user.lsp.handlers").toggle_format_on_save()' ]]
+
 return M
+
