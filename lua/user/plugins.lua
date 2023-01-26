@@ -151,6 +151,7 @@ return packer.startup(function(use)
   use { "ravenxrz/DAPInstall.nvim" }
   use { "ethanholz/nvim-lastplace" }
   use { "p00f/clangd_extensions.nvim" }
+  use { "theHamsta/nvim-dap-virtual-text" }
 
   -- Test
   use {
