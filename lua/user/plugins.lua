@@ -153,6 +153,9 @@ return packer.startup(function(use)
   use { "p00f/clangd_extensions.nvim" }
   use { "theHamsta/nvim-dap-virtual-text" }
 
+  -- dressing (better UI)
+  use { 'stevearc/dressing.nvim' }
+
   -- Test
   use {
     "nvim-neotest/neotest",

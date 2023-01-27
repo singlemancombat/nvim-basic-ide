@@ -41,4 +41,6 @@ illuminate.configure {
 	providers_regex_syntax_allowlist = {},
 	-- under_cursor: whether or not to illuminate under the cursor
 	under_cursor = true,
+  -- min_count_to_highlight: minimum number of matches required to perform highlighting
+  min_count_to_highlight = 1,
 }
