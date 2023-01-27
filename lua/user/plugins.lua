@@ -74,6 +74,7 @@ return packer.startup(function(use)
   use { "Mofiqul/dracula.nvim" }
   use { "Shatur/neovim-ayu" }
   use { 'shaunsingh/nord.nvim' }
+  use { 'AlexvZyl/nordic.nvim' }
   use { "rebelot/kanagawa.nvim" }
 
   -- neovim-ui-enhancerususe
