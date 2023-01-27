@@ -103,7 +103,7 @@ M.on_attach = function(client, bufnr)
     client.server_capabilities.documentFormattingProvider = false
   end
 
-  if client.name == "jdt.ls" then
+  if client.name == "jdtls" then
     vim.lsp.codelens.refresh()
     if JAVA_DAP_ACTIVE then
       require("jdtls").setup_dap { hotcodereplace = "auto" }
