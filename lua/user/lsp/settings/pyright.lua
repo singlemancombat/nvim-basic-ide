@@ -1,4 +1,5 @@
 return {
+  pyright = { autoImportCompletion = true },
   cmd = { "py" },
   settings = {
     python = {
@@ -6,7 +7,7 @@ return {
         typeCheckingMode = "basic",
         autoSearchPaths = true,
         useLibraryCodeForTypes = true,
-        diagnosticMode = "workspace",
+        diagnosticMode = "openFilesOnly",
         inlayHints = {
           variableTypes = true,
           functionReturnTypes = true,

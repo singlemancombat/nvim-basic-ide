@@ -5,7 +5,7 @@ vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
 vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
 
 require("catppuccin").setup({
-  flavour = "mocha", -- latte, frappe, macchiato, mocha
+  flavour = "macchiato", -- latte, frappe, mocha
   background = { -- :h background
     light = "latte",
     dark = "mocha",

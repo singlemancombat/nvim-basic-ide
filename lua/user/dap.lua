@@ -3,15 +3,21 @@ if not dap_status_ok then
   return
 end
 
+local dap_ui_status_ok, dapui = pcall(require, "dapui")
+if not dap_ui_status_ok then
+  return
+end
+
 local dap_go_status_ok, dap_go = pcall(require, "dap-go")
 if not dap_go_status_ok then
   return
 end
 
-local dap_ui_status_ok, dapui = pcall(require, "dapui")
-if not dap_ui_status_ok then
+local dap_python_status_ok, dap_python = pcall(require, "dap-python")
+if not dap_python_status_ok then
   return
 end
+
 
 local dap_text_status_ok, daptext = pcall(require, "nvim-dap-virtual-text")
 if not dap_text_status_ok then
@@ -64,6 +70,7 @@ dap_go.setup({
 })
 
 -- Config for Python --
+dap_python.setup('~/.virtualenvs/debugpy/bin/python')
 
 
 -- Config for Java --
